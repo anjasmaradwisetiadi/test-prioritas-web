@@ -27,10 +27,15 @@
               </div>
             </div>
             <div class="d-flex flex-column button-action mt-5">
-              <button class="button-login">
+              <button
+                class="button-login"
+                @click="Login"
+              >
                 Login
               </button>
-              <button class="button-google mt-3">
+              <button
+                class="button-google mt-3"
+              >
                 <b-icon icon="google" class="mr-5"></b-icon> Login Menggunakan Google
               </button>
               <div class="mt-3">
@@ -58,6 +63,11 @@ export default {
       form:{
         name: ''
       }
+    }
+  },
+  methods:{
+    Login(){
+      console.log('login')
     }
   }
 };

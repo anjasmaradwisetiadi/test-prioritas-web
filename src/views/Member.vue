@@ -30,7 +30,14 @@
               <td colspan="2">Otto</td>
               <td colspan="2">Mark</td>
               <td colspan="1">Ottoyok</td>
-              <td colspan="1">@mdo</td>
+              <td colspan="1">
+                <span class="h4">
+                  <b-icon icon="eye" class="mr-2"></b-icon>
+                </span>
+                <span class="h4">
+                  <b-icon icon="trash"></b-icon>
+                </span>
+              </td>
             </tr>
             <tr>
               <th scope="row">2</th>

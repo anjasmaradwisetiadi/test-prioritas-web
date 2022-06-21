@@ -11,7 +11,7 @@
                   Tambah Data Member
                 </h3>
               </div>
-              <div>
+              <div class="draft-style">
                 Draft
               </div>
             </div>
@@ -50,7 +50,7 @@
                   <div>
                     <input
                       class="input-form"
-                      type="text"
+                      type="date"
                       placeholder="Masukan tanggal lahir"
                     >
                   </div>
@@ -95,20 +95,19 @@
                   <div>
                     <span class="font-weight-bold">Alamat</span>
                   </div>
-                  <div class="d-flex">
-                    <div class="form-check mr-3">
-                      <input class="form-check-input" type="radio" name="gridMale" id="male" value="male">
-                      <label class="form-check-label" for="male">
-                        Laki - laki
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridFemale" id="female" value="female">
-                      <label class="form-check-label" for="female">
-                        Perempuan
-                      </label>
-                    </div>
-                  </div>
+                  <b-form-radio-group
+                    id="radio-group-gender"
+                    v-model="selected.gender"
+                  >
+                      <div class="d-flex">
+                          <div class="mr-3">
+                            <b-form-radio  name="some-radios" value="Laki - laki">Laki - laki</b-form-radio>
+                          </div>
+                          <div class="">
+                            <b-form-radio name="some-radios" value="Perempuan">Perempuan</b-form-radio>
+                          </div>
+                      </div>
+                  </b-form-radio-group>
                 </div>
               </div>
             </div>
@@ -118,20 +117,19 @@
                   <div>
                     <span class="font-weight-bold">Status Pernikahan</span>
                   </div>
-                  <div class="d-flex">
-                    <div class="form-check mr-3">
-                      <input class="form-check-input" type="radio" name="gridMarried" id="married" value="married">
-                      <label class="form-check-label" for="married">
-                        Menikah
-                      </label>
+                  <b-form-radio-group
+                    id="radio-group-married"
+                    v-model="selected.married"
+                  >
+                    <div class="d-flex">
+                      <div class="mr-3">
+                        <b-form-radio name="some-radios" value="Menikah">Menikah</b-form-radio>
+                      </div>
+                      <div class="">
+                        <b-form-radio name="some-radios" value="Belum menikah">Belum menikah</b-form-radio>
+                      </div>
                     </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridunMarried" id="unMarried" value="unMarried">
-                      <label class="form-check-label" for="unMarried">
-                        Belum Menikah
-                      </label>
-                    </div>
-                  </div>
+                  </b-form-radio-group>
                 </div>
               </div>
             </div>
@@ -304,35 +302,43 @@
                     <span class="font-weight-bold">Status</span>
                   </div>
                   <div class="d-flex">
-                    <div class="form-check mr-3">
-                      <input class="form-check-input" type="radio" name="gridActive" id="active" value="actived">
-                      <label class="form-check-label" for="active">
-                        Aktif
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridunActived" id="unActived" value="unActived">
-                      <label class="form-check-label" for="unActived">
-                        Tidak Aktif
-                      </label>
-                    </div>
+                    <b-form-radio-group
+                      id="radio-group-status"
+                      v-model="selected.status"
+                    >
+                      <div class="d-flex">
+                        <div class="mr-3">
+                          <b-form-radio  name="some-radios" value="Aktif">Aktif</b-form-radio>
+                        </div>
+                        <div class="">
+                          <b-form-radio name="some-radios" value="Tidak aktif">Tidak Aktif</b-form-radio>
+                        </div>
+                      </div>
+                    </b-form-radio-group>
                   </div>
                 </div>
               </div>
             </div>
             <div class="d-flex justify-content-between mt-4">
               <div>
-                <button class="btn btn-light">
+                <button
+                  class="btn btn-light"
+                  @click="handleBack"
+                >
                   Kembali
                 </button>
               </div>
               <div>
                 <button
                   class="btn btn-danger mr-3"
+                  @click="handleCancel"
                 >
                   Reset
                 </button>
-                <button class="btn btn-success">
+                <button
+                  class="btn btn-success"
+                  @click="handleSave"
+                >
                   Simpan
                 </button>
               </div>
@@ -342,6 +348,14 @@
       </div>
     </div>
     <Footer></Footer>
+    <b-modal
+      id="modalSuccessSave"
+      data-cy="modal-information"
+      hide-footer
+      hide-header
+    >
+      <p>Berhasil Save</p>
+    </b-modal>
   </div>
 </template>
 
@@ -350,7 +364,29 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 export default {
   name: "AddMember",
-  components: {Footer, Header}
+  components: {Footer, Header},
+  data(){
+    return{
+      selected:{
+        gender: 'Laki - laki',
+        married: 'Menikah',
+        status: 'Tidak aktif'
+      }
+    }
+  },
+  methods:{
+    handleSave(){
+      console.log('handle Save')
+      console.log(this.selected)
+      this.$bvModal.show('modalSuccessSave')
+    },
+    handleCancel(){
+      console.log('handle Cancel')
+    },
+    handleBack(){
+      console.log('handle Back')
+    }
+  }
 }
 </script>
 
@@ -368,5 +404,13 @@ export default {
 }
 .input-form::placeholder{
   color: lightgrey;
+}
+
+.draft-style{
+  background-color: #fef3c7;
+  color: #c8996b;
+  padding: 4px 14px;
+  margin: 4px 2px;
+  border-radius: 14px;
 }
 </style>
