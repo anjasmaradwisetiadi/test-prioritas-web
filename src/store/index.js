@@ -11,12 +11,6 @@ export default new Vuex.Store({
     error: false
   },
   mutations: {
-    LOADING(state, payload){
-      state.loading = payload
-    },
-    ERROR(state, payload){
-      state.error = payload
-    }
   },
   actions: {
   },
