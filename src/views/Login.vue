@@ -16,11 +16,23 @@
             <div class="form-input text-left">
               <div class="form-group">
                 <label for="emailForm" class="font-weight-bold">Email</label>
-                <input type="email" class="form-control shadow-sm" id="emailForm" placeholder="Masukan email anda">
+                <input
+                  v-model="form.email"
+                  type="email"
+                  class="form-control shadow-sm input-form"
+                  id="emailForm"
+                  placeholder="Masukan email anda"
+                >
               </div>
               <div class="form-group">
                 <label for="emailPasword" class="font-weight-bold">Password</label>
-                <input type="password" class="form-control shadow-sm" id="emailPasword" placeholder="Masukan password anda">
+                <input
+                  v-model="form.password"
+                  type="password"
+                  class="form-control shadow-sm input-form"
+                  id="emailPasword"
+                  placeholder="Masukan password anda"
+                >
               </div>
               <div>
                 <span class="text-primary pointer-forget">lupa kata sandi?</span>
@@ -29,7 +41,7 @@
             <div class="d-flex flex-column button-action mt-5">
               <button
                 class="button-login"
-                @click="Login"
+                @click="handleLogin"
               >
                 Login
               </button>
@@ -46,6 +58,14 @@
         </div>
       </div>
     </div>
+    <b-modal
+      id="modalWrongPassword"
+      data-cy="modal-information"
+      hide-footer
+      hide-header
+    >
+      <p>Salah Password</p>
+    </b-modal>
   </div>
 </template>
 
@@ -61,18 +81,32 @@ export default {
   data(){
     return{
       form:{
-        name: ''
+        email: '',
+        password: ''
       }
     }
   },
   methods:{
-    Login(){
-      console.log('login')
+    handleLogin(){
+      const payload = {
+        email: this.form.email,
+        password: this.form.password
+      }
+      this.$store.dispatch('loginAuth', payload)
+        .then((resp)=>{
+          sessionStorage.setItem('token',resp.data.data.token)
+          this.$store.commit('SET_TOKEN',resp.data.data.token)
+          this.$router.push({path:'/member'})
+        })
+        .catch((error)=>{
+          sessionStorage.setItem('token','')
+          this.$store.commit('SET_TOKEN','')
+          this.$bvModal.show('modalWrongPassword')
+        })
     }
-  }
+  },
 };
 </script>
-
 <style>
   .disable-row{
     margin-right: 0 !important;
@@ -83,6 +117,10 @@ export default {
   }
   .side-login{
     background-color: #f3f4f6;
+  }
+
+  .input-form::placeholder{
+    color: lightgrey;
   }
 
   .login-form{

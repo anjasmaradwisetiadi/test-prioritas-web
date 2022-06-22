@@ -269,28 +269,30 @@
               <div class="col-6  d-flex flex-column">
                 <div class="card-input">
                   <div>
-                    <span class="font-weight-bold">Nama member</span>
+                    <span class="font-weight-bold">Provinsi</span>
                   </div>
                   <div>
-                    <input
-                      class="input-form"
-                      type="text"
-                      placeholder="Masukan name member"
-                    >
+                    <select class="custom-select">
+                      <option value="" selected disabled>Pilih Provinsi</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
                   </div>
                 </div>
               </div>
               <div class="col-6 flex-column">
                 <div class="card-input">
                   <div>
-                    <span class="font-weight-bold">Tanggal Lahir</span>
+                    <span class="font-weight-bold">Kota</span>
                   </div>
                   <div>
-                    <input
-                      class="input-form"
-                      type="text"
-                      placeholder="Masukan tanggal lahir"
-                    >
+                    <select class="custom-select">
+                      <option value="" selected disabled>Pilih Kota</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -376,8 +378,6 @@ export default {
   },
   methods:{
     handleSave(){
-      console.log('handle Save')
-      console.log(this.selected)
       this.$bvModal.show('modalSuccessSave')
     },
     handleCancel(){
@@ -397,6 +397,10 @@ export default {
   border: 1px solid #ced4da;
   border-radius: 6px;
 }
+.card-input span{
+  padding-left: 8px;
+}
+
 .input-form{
  width: 100%;
  border: none;

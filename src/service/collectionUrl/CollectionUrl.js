@@ -1,6 +1,11 @@
 import enviroment from "../enviroments/enviroment";
+
 const collectionUrl = {
-  group: `${enviroment}/ `
+  login: `${enviroment.url}login`,
+  getMember: `${enviroment.url}offices?filter[office_type]=Member `,
+  createMember: `${enviroment.url}offices/-actions/createMember`,
+  getProvince: `${enviroment.url}provinces`,
+  getCity: `${enviroment.url}cities`
 }
 
 export default collectionUrl
