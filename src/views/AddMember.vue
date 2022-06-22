@@ -361,7 +361,7 @@
               <div>
                 <button
                   class="btn btn-danger mr-3"
-                  @click="handleCancel"
+                  @click="handleReset"
                 >
                   Reset
                 </button>
@@ -384,7 +384,11 @@
       hide-footer
       hide-header
     >
-      <p>{{ message }}</p>
+      <p
+        class="text-center"
+        :class="statusMessage? 'text-success': 'text-danger'"
+      >
+        {{ message }}</p>
     </b-modal>
   </div>
 </template>
@@ -404,6 +408,7 @@ export default {
         status: 'Tidak aktif'
       },
       message:'',
+      statusMessage:true,
       form:{
         nameMember:'',
         birthMember:'',
@@ -467,18 +472,34 @@ export default {
       }
       this.$store.dispatch('createMember', payload)
         .then((resp)=>{
-          this.message = 'berhasil create member'
+          this.statusMessage = true
+          this.message = 'Berhasil create member'
           this.$bvModal.show('modalSuccessSave')
         })
         .catch((error)=>{
-          this.message = 'gagal create member'
+          this.statusMessage = false
+          this.message = 'Gagal create member'
           this.$bvModal.show('modalSuccessSave')
         })
 
 
     },
-    handleCancel(){
-      console.log('handle Cancel')
+    handleReset(){
+      this.form.nameMember = ''
+      this.form.birthMember = ''
+      this.form.email = ''
+      this.form.address = ''
+      this.form.npwp = ''
+      this.form.addressNpwp = ''
+     this.form.noReferal = ''
+     this.form.nameReferal = ''
+     this.form.codeOffice = ''
+     this.form.addressOffice = ''
+     this.form.province = ''
+     this.form.cities = ''
+     this.form.gender = ''
+     this.form.married = ''
+     this.form.status = ''
     },
     handleBack(){
       this.$router.go(-1)

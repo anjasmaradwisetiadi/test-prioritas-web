@@ -64,7 +64,9 @@
       hide-footer
       hide-header
     >
-      <p>Salah Password atau salah username</p>
+      <p
+        class="text-center text-danger"
+      >Salah Password atau salah username</p>
     </b-modal>
   </div>
 </template>
@@ -152,4 +154,5 @@ export default {
     background-color: white;
     border: gray solid 1px;
   }
+
 </style>

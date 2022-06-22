@@ -1,8 +1,6 @@
 import collectionUrl from "../../service/collectionUrl/CollectionUrl";
 import axios from "axios";
 
-import router from "../../router";
-
 export const auth={
   state:{
     user:{},

@@ -1,7 +1,7 @@
 <template>
   <div class="member">
     <Header></Header>
-    <div class="contain contain-bg">
+    <div class="contain contain-b">
       <div class="container pt-5 pb-5">
         <div class="header d-flex justify-content-between">
           <h2 class="font-weight-bold">
@@ -13,7 +13,7 @@
             Tambah Member
           </button>
         </div>
-        <div class="mt-2 mb-2">
+        <div class="mt-4 mb-2">
           <div v-if="loadingStatus">
             Loading....
           </div>
@@ -110,6 +110,7 @@ export default {
 }
 
 .bg-table{
+  border: 1px solid lightgrey ;
   background-color: white;
   border-radius: 14px;
 }
@@ -130,4 +131,11 @@ export default {
   width: 100%;
   border-bottom: 1px black solid;
 }*/
+
+tr:first-child td:first-child{
+  border-top-left-radius: 10px;
+}
+tr:last-child td:first-child{
+  border-bottom-left-radius: 10px;
+}
 </style>

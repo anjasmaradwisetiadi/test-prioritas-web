@@ -132,8 +132,6 @@ export const member={
           },
           data: fetchJson
         })
-
-
       }
   },
   getters: {
