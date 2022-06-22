@@ -272,11 +272,20 @@
                     <span class="font-weight-bold">Provinsi</span>
                   </div>
                   <div>
-                    <select class="custom-select">
+                    <select
+                      @click="handleProvince"
+                      class="custom-select"
+                      v-model="form.province"
+                    >
                       <option value="" selected disabled>Pilih Provinsi</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                      <option v-if="loadingStatus">Loading....</option>
+                      <option v-else-if="errorStatus && !loadingStatus">Error....</option>
+                      <option
+                        v-for="(item,index) in getProvince"
+                        :key="index"
+                        :value="item.attributes.code">
+                        {{ item.attributes.name }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -287,11 +296,20 @@
                     <span class="font-weight-bold">Kota</span>
                   </div>
                   <div>
-                    <select class="custom-select">
+                    <select
+                      class="custom-select"
+                      @click="handleCities"
+                      v-model="form.cities"
+                    >
                       <option value="" selected disabled>Pilih Kota</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                      <option v-if="loadingStatus">Loading....</option>
+                      <option v-else-if="errorStatus && !loadingStatus">Error....</option>
+                      <option
+                        v-for="(item,index) in getCities"
+                        :key="index"
+                        :value="item.attributes.code">
+                        {{ item.attributes.name }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -373,18 +391,44 @@ export default {
         gender: 'Laki - laki',
         married: 'Menikah',
         status: 'Tidak aktif'
+      },
+      form:{
+        province: '',
+        cities: ''
       }
     }
   },
+  computed:{
+    getProvince(){
+      return this.$store.getters.getProvinceCollect
+    },
+    getCities() {
+      return this.$store.getters.getCitiesCollect
+    },
+    loadingStatus(){
+      return this.$store.state.loading
+    },
+    errorStatus(){
+      return this.$store.state.error
+    }
+  },
   methods:{
+    handleProvince(){
+      this.$store.dispatch('getProvince')
+    },
+    handleCities(){
+      this.$store.dispatch('getCities')
+    },
     handleSave(){
+      console.log('form save')
+      console.log(this.form)
       this.$bvModal.show('modalSuccessSave')
     },
     handleCancel(){
       console.log('handle Cancel')
     },
     handleBack(){
-      console.log('handle Back')
+      this.$router.go(-1)
     }
   }
 }
