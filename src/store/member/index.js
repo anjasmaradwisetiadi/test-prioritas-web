@@ -1,7 +1,7 @@
 import collectionUrl from "../../service/collectionUrl/CollectionUrl";
 import axios from "axios";
 
-const token = sessionStorage.getItem('token')
+const token = localStorage.getItem('token')
 
 export const member={
   state:{
@@ -25,7 +25,8 @@ export const member={
         rootState.loading = true
         axios({
           headers:{
-            authorization: `Bearer ${token}`
+            authorization: `Bearer ${token}`,
+            'content-type': 'application/vnd.api+json'
           },
           method: 'GET',
           url: `${collectionUrl.getMember}${payload}`,
@@ -46,7 +47,8 @@ export const member={
         rootState.loading = true
         axios({
           headers:{
-            authorization: `Bearer ${token}`
+            authorization: `Bearer ${token}`,
+            'content-type': 'application/vnd.api+json'
           },
           method: 'GET',
           url: collectionUrl.getProvince,
@@ -67,7 +69,8 @@ export const member={
         rootState.loading = false
         axios({
           headers:{
-            authorization: `Bearer ${token}`
+            authorization: `Bearer ${token}`,
+            'content-type': 'application/vnd.api+json'
           },
           method: 'GET',
           url: collectionUrl.getCity,
@@ -83,16 +86,64 @@ export const member={
             rootState.loading = false
             rootState.error = false
           })
+      },
+      createMember({commit, rootState}, payload){
+        const fetchJson=JSON.stringify({
+          'data':{
+            'type': "offices",
+            'attributes': {
+              "office_type": "member",
+              "office_registration_id": payload.officeRegistrationId,
+              "office_referral_id": payload.officeReferralId,
+              "name": payload.nameMember,
+              "birthdate": payload.birthMember,
+              "marital_status": payload.married,
+              "npwp_number": payload.npwp,
+              "npwp_name": payload.nameReferal,
+              "spouse_name": "Pasangan",
+              "spouse_birthdate": "2022-05-11",
+              "bank_account_number": payload.noReferal,
+              "bank_account_name": payload.nameReferal,
+              "bank_name": "PT BANK SYARIAH INDONESIA Tbk",
+              "bank_branch_name": "Indramayu",
+              "address_details": [
+                {
+                  "province_id": payload.province,
+                  "city_id": payload.cities
+                }
+              ]
+            },
+            "relationships": {
+              "office-category": {
+                "data": {
+                  "type": "office-categories",
+                  "id": payload.officeCategoryId
+                }
+              }
+            }
+           }
+          })
+        axios({
+          method: 'POST',
+          url: collectionUrl.createMember,
+          headers:{
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/vnd.api+json',
+          },
+          data: fetchJson
+        })
+
+
       }
   },
   getters: {
-    getMemberCollect:(state)=>{
+    getMemberCollect: (state)=>{
       return state.memberCollect
     },
     getProvinceCollect: (state)=>{
       return state.provinceCollect
     },
-    getCitiesCollect:(state)=>{
+    getCitiesCollect: (state)=>{
       return state.citiesCollect
     }
   }

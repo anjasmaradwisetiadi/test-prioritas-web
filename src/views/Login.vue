@@ -64,7 +64,7 @@
       hide-footer
       hide-header
     >
-      <p>Salah Password</p>
+      <p>Salah Password atau salah username</p>
     </b-modal>
   </div>
 </template>
@@ -94,12 +94,14 @@ export default {
       }
       this.$store.dispatch('loginAuth', payload)
         .then((resp)=>{
-          sessionStorage.setItem('token',resp.data.data.token)
+          localStorage.setItem('token',resp.data.data.token)
           this.$store.commit('SET_TOKEN',resp.data.data.token)
+          this.$store.commit('SET_USER', resp.data.data.user)
           this.$router.push({path:'/member'})
         })
         .catch((error)=>{
-          sessionStorage.setItem('token','')
+          console.log('ini wrong')
+          localStorage.setItem('token','')
           this.$store.commit('SET_TOKEN','')
           this.$bvModal.show('modalWrongPassword')
         })

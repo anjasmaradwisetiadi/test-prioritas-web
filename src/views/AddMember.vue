@@ -35,6 +35,7 @@
                   </div>
                   <div>
                     <input
+                      v-model="form.nameMember"
                       class="input-form"
                       type="text"
                       placeholder="Masukan name member"
@@ -49,6 +50,7 @@
                   </div>
                   <div>
                     <input
+                      v-model="form.birthMember"
                       class="input-form"
                       type="date"
                       placeholder="Masukan tanggal lahir"
@@ -65,6 +67,7 @@
                   </div>
                   <div>
                     <input
+                      v-model="form.email"
                       class="input-form"
                       type="text"
                       placeholder="Masukan Email Distributor"
@@ -81,6 +84,7 @@
                   </div>
                   <div>
                     <input
+                      v-model="form.address"
                       class="input-form"
                       type="text"
                       placeholder="Masukan Alamat Distributor"
@@ -97,7 +101,7 @@
                   </div>
                   <b-form-radio-group
                     id="radio-group-gender"
-                    v-model="selected.gender"
+                    v-model="form.gender"
                   >
                       <div class="d-flex">
                           <div class="mr-3">
@@ -119,7 +123,7 @@
                   </div>
                   <b-form-radio-group
                     id="radio-group-married"
-                    v-model="selected.married"
+                    v-model="form.married"
                   >
                     <div class="d-flex">
                       <div class="mr-3">
@@ -153,6 +157,7 @@
                   </div>
                   <div>
                     <input
+                      v-model="form.npwp"
                       class="input-form"
                       type="text"
                       placeholder="Masukan NPWP Valid"
@@ -169,6 +174,7 @@
                   </div>
                   <div>
                     <input
+                      v-model="form.addressNpwp"
                       class="input-form"
                       type="text"
                       placeholder="Masukan alamat NPWP"
@@ -197,6 +203,7 @@
                   </div>
                   <div>
                     <input
+                      v-model="form.noReferal"
                       class="input-form"
                       type="text"
                       placeholder="Masukan nomor referal"
@@ -213,6 +220,7 @@
                   </div>
                   <div>
                     <input
+                      v-model="form.nameReferal"
                       class="input-form"
                       type="text"
                       placeholder="Masukan nama referal"
@@ -241,6 +249,7 @@
                   </div>
                   <div>
                     <input
+                      v-model="form.codeOffice"
                       class="input-form"
                       type="text"
                       placeholder="Masukan kode kantor"
@@ -257,6 +266,7 @@
                   </div>
                   <div>
                     <input
+                      v-model="form.addressOffice"
                       class="input-form"
                       type="text"
                       placeholder="Masukan alamat kantor"
@@ -324,7 +334,7 @@
                   <div class="d-flex">
                     <b-form-radio-group
                       id="radio-group-status"
-                      v-model="selected.status"
+                      v-model="form.status"
                     >
                       <div class="d-flex">
                         <div class="mr-3">
@@ -374,7 +384,7 @@
       hide-footer
       hide-header
     >
-      <p>Berhasil Save</p>
+      <p>{{ message }}</p>
     </b-modal>
   </div>
 </template>
@@ -382,6 +392,7 @@
 <script>
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import enviroment from "../service/enviroments/enviroment";
 export default {
   name: "AddMember",
   components: {Footer, Header},
@@ -392,9 +403,23 @@ export default {
         married: 'Menikah',
         status: 'Tidak aktif'
       },
+      message:'',
       form:{
+        nameMember:'',
+        birthMember:'',
+        email:'',
+        address:'',
+        npwp:'',
+        addressNpwp:'',
+        noReferal: '',
+        nameReferal: '',
+        codeOffice: '',
+        addressOffice:'',
         province: '',
-        cities: ''
+        cities: '',
+        gender: 'Laki - laki',
+        married: 'Menikah',
+        status: 'Tidak aktif'
       }
     }
   },
@@ -420,9 +445,37 @@ export default {
       this.$store.dispatch('getCities')
     },
     handleSave(){
-      console.log('form save')
-      console.log(this.form)
-      this.$bvModal.show('modalSuccessSave')
+      const payload = {
+        'officeRegistrationId': enviroment.auth_office_id,
+        "officeReferralId": enviroment.auth_office_id,
+        'officeCategoryId':enviroment.user_category_member_id,
+        'nameMember':this.form.nameMember,
+        'birthMember':this.form.birthMember,
+        'email':this.form.email,
+        'address':this.form.address,
+        'npwp':this.form.npwp,
+        'addressNpwp':this.form.addressNpwp,
+        'noReferal': this.form.noReferal,
+        'nameReferal': this.form.nameReferal,
+        'codeOffice': this.form.codeOffice,
+        'addressOffice': this.form.addressOffice,
+        'province': this.form.province,
+        'cities': this.form.cities,
+        'gender': this.form.gender,
+        'married': this.form.married,
+        'status': this.form.status,
+      }
+      this.$store.dispatch('createMember', payload)
+        .then((resp)=>{
+          this.message = 'berhasil create member'
+          this.$bvModal.show('modalSuccessSave')
+        })
+        .catch((error)=>{
+          this.message = 'gagal create member'
+          this.$bvModal.show('modalSuccessSave')
+        })
+
+
     },
     handleCancel(){
       console.log('handle Cancel')

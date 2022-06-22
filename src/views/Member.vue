@@ -24,12 +24,12 @@
             <table class="table table-hover bg-table text-left">
               <thead class="bg-thead none-border">
               <tr class="none-border border-radius-thead">
-                <th scope="col" width="20%">Tipe Member</th>
-                <th scope="col" width="20%">Kode Member</th>
-                <th scope="col" width="20%">Nama Member</th>
-                <th scope="col" width="30%">Alamat</th>
-                <th scope="col" width="20%">Telp</th>
-                <th scope="col" width="10%">Status</th>
+                <th  width="15%">Tipe Member</th>
+                <th  width="20%">Kode Member</th>
+                <th  width="20%">Nama Member</th>
+                <th  width="30%">Alamat</th>
+                <th  width="20%">Telp</th>
+                <th  width="5%">Status</th>
               </tr>
               </thead>
               <tbody>
@@ -37,18 +37,20 @@
                 v-for="(item,index) in memberData"
                 :key="index"
               >
-                <td width="20%" >{{ item.attributes.office_type}}</td>
+                <td width="15%" >{{ item.attributes.office_type}}</td>
                 <td width="20%">{{ item.attributes.code }}</td>
                 <td width="20%">{{ item.attributes.name }}</td>
                 <td width="30%">{{ item.attributes.address }}</td>
                 <td width="20%">{{ item.attributes.phone}}</td>
-                <td class="d-flex"  width="10%">
-                <span class="h4">
-                  <b-icon icon="eye" class="mr-2"></b-icon>
-                </span>
-                  <span class="h4">
-                  <b-icon icon="trash"></b-icon>
-                </span>
+                <td width="5%">
+                  <div class="d-flex">
+                                      <span class="h4">
+                    <b-icon icon="eye" class="mr-2"></b-icon>
+                  </span>
+                    <span class="h4">
+                    <b-icon icon="trash"></b-icon>
+                  </span>
+                  </div>
                 </td>
               </tr>
               </tbody>
