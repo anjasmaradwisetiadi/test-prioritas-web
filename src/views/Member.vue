@@ -21,7 +21,7 @@
             Something wrong
           </div>
           <div v-else-if="!errorStatus && !loadingStatus">
-            <table class="table table-hover bg-table text-left">
+            <table class="table table-hover bg-table text-left shadow">
               <thead class="bg-thead none-border">
               <tr class="none-border border-radius-thead">
                 <th  width="15%">Tipe Member</th>
@@ -104,13 +104,18 @@ export default {
 </script>
 
 <style scoped>
+.member{
+  background-color: #f3f4f6;
+}
 
+.contain{
+  min-height: 100vh;
+}
 .border-radius-thead{
   border-radius: 14px;
 }
 
 .bg-table{
-  border: 1px solid lightgrey ;
   background-color: white;
   border-radius: 14px;
 }
@@ -123,14 +128,6 @@ export default {
 .table > :not(:first-child) {
   border-top: 2px solid currentColor;
 }
-
-/*.bg-table:after{
-  content: '';
-  display: block;
-  padding-top: 10px;
-  width: 100%;
-  border-bottom: 1px black solid;
-}*/
 
 tr:first-child td:first-child{
   border-top-left-radius: 10px;

@@ -7,7 +7,7 @@
           <h4>dan jalankan bisnis anda</h4>
         </div>
       </div>
-      <div class="col-md-6 main-login padding-all">
+      <div class="col-md-6 main-login padding-all align-self-center">
         <div class="container d-flex justify-content-center">
           <div class="login-form">
             <h4 class="font-weight-bold text-center mb-5">
@@ -73,13 +73,8 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
-
 export default {
   name: 'Login',
-  components: {
-    HelloWorld,
-  },
   data(){
     return{
       form:{
@@ -112,6 +107,9 @@ export default {
 };
 </script>
 <style>
+  .home{
+    min-height: 100vh;
+  }
   .disable-row{
     margin-right: 0 !important;
     margin-left: 0 !important;
@@ -121,6 +119,7 @@ export default {
   }
   .side-login{
     background-color: #f3f4f6;
+    min-height: 100vh;
   }
 
   .input-form::placeholder{

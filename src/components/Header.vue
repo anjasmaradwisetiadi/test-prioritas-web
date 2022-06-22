@@ -19,7 +19,26 @@
         </div>
       </div>
       <div class="col-2">
-        <p>faris</p>
+        <div class="d-flex align-items-center">
+          <div class="mr-3">
+            <b-form-checkbox v-model="switchOne" name="check-button" switch size="lg">
+            </b-form-checkbox>
+          </div>
+          <div class="mr-3">
+            <img
+              class="image-rounded"
+              :src="require('../assets/image/face1.jpg')" alt="">
+          </div>
+          <div class="mr-3">
+            <div><b>Farras</b></div>
+            <div class="text-muted mt-1">Admin</div>
+          </div>
+          <div >
+            <p class="h4 font-weight-bold">
+              <b-icon icon="chevron-down" class="mr-5"></b-icon>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -27,7 +46,12 @@
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  data(){
+    return{
+      switchOne: false
+    }
+  }
 }
 </script>
 
@@ -51,5 +75,11 @@ export default {
   border-bottom: 2px #16a34a solid;
   width: 90%;
   align-items: center;
+}
+
+.image-rounded{
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
 }
 </style>
